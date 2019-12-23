@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Movie";
+}
+
+<h1>Movie Details</h1>
+@Html.ActionLink("Back To Movies List", "Index", null, new { @class = "btn btn-primary" })
+<h2>@Model.Name</h2>
+<ul>
+    @if (Model.Genre != null)
+    {
+        <li>Genre: @Model.Genre</li>
+    }
+    @if (Model.ReleaseDate != null)
+    {
+        <li>ReleaseDate: @Model.ReleaseDate</li>
+    }
+    @if (Model.DateAdded != null)
+    {
+        <li>Date Added: @Model.DateAdded</li>
+    }
+    @if (Model.Stock != null)
+    {
+        if (Model.Stock == 0)
+        {
+            <li>Stock: <span style="color: red">None in stock</span></li>
+        }
+        else
+        {
+            <li>Stock: @Model.Stock</li>
+        }
+
+    }
+
+
+
+
+</ul>

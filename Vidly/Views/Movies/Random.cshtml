@@ -1,0 +1,35 @@
+﻿@*@model Vidly.ViewModels.RandomMovieViewModel*@
+
+@{
+    ViewBag.Title = "Random";
+}
+
+<h1>Random Movie:</h1>
+@Html.ActionLink("Random Movie", "Random", null, new { @class = "btn btn-primary" })
+@Html.ActionLink("Full Movies List", "Index", null, new { @class = "btn btn-primary" })
+<h2>@Model.Name</h2>
+
+@if (Model.Genre != null)
+{
+    <li>Genre: @Model.Genre</li>
+}
+@if (Model.ReleaseDate != null)
+{
+    <li>ReleaseDate: @Model.ReleaseDate</li>
+}
+@if (Model.DateAdded != null)
+{
+    <li>Date Added: @Model.DateAdded</li>
+}
+@if (Model.Stock != null)
+{
+    if (Model.Stock == 0)
+    {
+        <li>Stock: <span style="color: red">None in stock</span></li>
+    }
+    else
+    {
+        <li>Stock: @Model.Stock</li>
+    }
+
+}
