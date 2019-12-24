@@ -4,20 +4,21 @@
 }
 
 <h1>Movie Details</h1>
-@Html.ActionLink("Back To Movies List", "Index", null, new { @class = "btn btn-primary" })
-<h2>@Model.Name</h2>
+@Html.ActionLink("Back To Movies List", "Index", null, new { @class = "btn btn-primary" }) 
+
+<h2>@Model.Name @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary ml-1" })</h2>
 <ul>
-    @if (Model.Genre != null)
+    @if (@Model.Genre.Name != null)
     {
-        <li>Genre: @Model.Genre</li>
+        <li>Genre: @Model.Genre.Name</li>
     }
     @if (Model.ReleaseDate != null)
     {
-        <li>ReleaseDate: @Model.ReleaseDate</li>
+        <li>ReleaseDate: @Model.ReleaseDate.ToString("d MMM yyyy")</li>
     }
     @if (Model.DateAdded != null)
     {
-        <li>Date Added: @Model.DateAdded</li>
+        <li>Date Added: @Model.DateAdded.ToString("d MMM yyyy")</li>
     }
     @if (Model.Stock != null)
     {

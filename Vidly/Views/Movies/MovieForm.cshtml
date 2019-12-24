@@ -1,10 +1,6 @@
 ﻿
 @model Vidly.ViewModels.MovieFormViewModel
 
-@{
-    ViewBag.Title = "MovieForm";
-}
-
 <h2>@Model.Title</h2>
 
 @using (Html.BeginForm("Save", "Movies"))
@@ -12,14 +8,20 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Movie.Name)
-        @Html.TextBoxFor(m => m.Movie.Name, new { @class="form-control" })
+        @Html.TextBoxFor(m => m.Movie.Name, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Movie.Name)
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.Movie.ReleaseDate)
-        @Html.TextBoxFor(m => m.Movie.ReleaseDate, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Movie.ReleaseDate, "{0:d MMM yyyy}", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Movie.ReleaseDate)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.DateAdded)
+        @Html.TextBoxFor(m => m.Movie.DateAdded, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Movie.DateAdded)
     </div>
 
     <div class="form-group">
@@ -35,7 +37,19 @@
     </div>
 
 
-    @Html.HiddenFor(m => m.Movie.GenreId)
+    @Html.HiddenFor(m => m.Movie.ID)
+
+
+     
+        var linkText = "/Movies";
+        if (Model.Movie != null)
+        {
+            linkText = "/Movies/Movie/"+Model.Movie.ID;
+        }
+    
+    
+        <a href="@linkText" class="btn">Cancel</a>
+    
     <button type="submit" class="btn btn-primary">Save</button>
 }
 <script>
