@@ -15,7 +15,8 @@ namespace Vidly.Migrations
                 "('Thriller')," +
                 "('Horror')," +
                 "('Animated')," +
-                "('Drama')");
+                "('Drama')," +
+                "('Sci-Fi')");
         }
         
         public override void Down()

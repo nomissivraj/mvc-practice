@@ -43,19 +43,26 @@ namespace Vidly.Controllers
             //movie.DateAdded = DateTime.Now;
             if (movie.ID == 0)
             {
+                movie.DateAdded = DateTime.Now;
                 _context.Movies.Add(movie);
             } else
             {
                 var movieInDB = _context.Movies.Single(m => m.ID == movie.ID);
                 movieInDB.Name = movie.Name;
                 movieInDB.ReleaseDate = movie.ReleaseDate;
-                movieInDB.DateAdded = movie.DateAdded;
                 movieInDB.GenreId = movie.GenreId;
                 movieInDB.Stock = movie.Stock;
             }
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Movies");
+            if (movie.ID == 0)
+            {
+                return RedirectToAction("Index", "Movies");
+            } else
+            {
+                return RedirectToAction("Movie", "Movies", new {id = movie.ID });
+            }
+            
         }
 
         public ActionResult Edit(int ID)
@@ -84,7 +91,7 @@ namespace Vidly.Controllers
 
         public ActionResult Random()
         {
-            var movies = _context.Movies.ToList();
+            var movies = _context.Movies.Include(m=>m.Genre).ToList();
 
             Random r = new Random();
             int rInt = r.Next(1, movies.Count + 1);
