@@ -15,6 +15,7 @@ namespace Vidly.Models
         public string Name { get; set; }
 
         [Display(Name = "Date Of Birth")]
+        [AgeLimit]
         public DateTime? DoB { get; set; }
 
         [MaxLength(1000, ErrorMessage = "{1} Max Characters")]

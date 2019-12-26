@@ -30,3 +30,15 @@ textarea {
 .ml-1 {
     margin-left: 10px;
 }
+
+.field-validation-error {
+    color: red;
+}
+
+.input-validation-error {
+    border: 2px solid red;
+}
+
+.validation-summary-errors {
+     color: red;
+}

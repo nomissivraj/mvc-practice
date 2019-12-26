@@ -26,11 +26,10 @@ namespace Vidly.Controllers
         // Return form for new
         public ActionResult New()
         {
-            var genres = _context.Genres.ToList();
 
             var viewModel = new MovieFormViewModel
             {
-                Genres = genres
+                Genres = _context.Genres.ToList()
             };
 
             return View("MovieForm", viewModel);
@@ -38,14 +37,25 @@ namespace Vidly.Controllers
 
         // Post save from form above
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(MovieModel movie)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel(movie)
+                {
+                    Genres = _context.Genres.ToList()
+                };
+                return View("MovieForm", viewModel);
+            }
+
             //movie.DateAdded = DateTime.Now;
             if (movie.ID == 0)
             {
                 movie.DateAdded = DateTime.Now;
                 _context.Movies.Add(movie);
-            } else
+            }
+            else
             {
                 var movieInDB = _context.Movies.Single(m => m.ID == movie.ID);
                 movieInDB.Name = movie.Name;
@@ -58,11 +68,12 @@ namespace Vidly.Controllers
             if (movie.ID == 0)
             {
                 return RedirectToAction("Index", "Movies");
-            } else
-            {
-                return RedirectToAction("Movie", "Movies", new {id = movie.ID });
             }
-            
+            else
+            {
+                return RedirectToAction("Movie", "Movies", new { id = movie.ID });
+            }
+
         }
 
         public ActionResult Edit(int ID)
@@ -72,9 +83,8 @@ namespace Vidly.Controllers
             if (movie == null)
                 return HttpNotFound();
 
-            var viewModel = new MovieFormViewModel
+            var viewModel = new MovieFormViewModel(movie)
             {
-                Movie = movie,
                 Genres = _context.Genres.ToList()//for select dropdown
             };
 
@@ -91,7 +101,7 @@ namespace Vidly.Controllers
 
         public ActionResult Random()
         {
-            var movies = _context.Movies.Include(m=>m.Genre).ToList();
+            var movies = _context.Movies.Include(m => m.Genre).ToList();
 
             Random r = new Random();
             int rInt = r.Next(1, movies.Count + 1);
