@@ -48,6 +48,12 @@ namespace Vidly.Controllers.API
 
             movie.DateAdded = movie.DateAdded = DateTime.Now;
 
+            // Could do custom functionality for adding genre as a string
+
+            //             (|add to DTO|)
+            // i.e. if movieDTO.Genre string is in db genretable return id from table and set movie.GenreId to that id
+
+
             _context.Movies.Add(movie);
             _context.SaveChanges();
 
@@ -69,6 +75,14 @@ namespace Vidly.Controllers.API
             if (movieInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
+            // Could do custom functionality for adding genre as a string
+
+            //             (|add to DTO|)
+            // i.e. if movieDTO.Genre string is in db genretable return id from table and set movie.GenreId to that id
+
+
+
+            // Finally map the incomig data (movieDTO) to the db context (movieInDb) and then save the overall context
             Mapper.Map(movieDTO, movieInDb);
 
             _context.SaveChanges();
