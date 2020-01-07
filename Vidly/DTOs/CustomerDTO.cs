@@ -15,7 +15,7 @@ namespace Vidly.DTOs
         [StringLength(255)]
         public string Name { get; set; }
 
-        [AgeLimit]
+        //[AgeLimit]
         public DateTime? DoB { get; set; }
 
         [MaxLength(1000, ErrorMessage = "{1} Max Characters")]

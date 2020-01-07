@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Vidly.Models;
+using AutoMapper;
+using Vidly.DTOs;
 
 namespace Vidly.Controllers.API
 {
@@ -18,50 +20,51 @@ namespace Vidly.Controllers.API
         }
 
         // GET /api/customers
-        public IEnumerable<CustomerModel> GetCustomers()
+        public IEnumerable<CustomerDTO> GetCustomers()
         {
-            return _context.Customers.ToList();
+            return _context.Customers.ToList().Select(Mapper.Map<CustomerModel, CustomerDTO>);
         }
 
         // GET /api/customers/1
-        public CustomerModel GetCustomer(int id)
+        public IHttpActionResult GetCustomer(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.ID == id);
 
             if (customer == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
-            return customer;
+            return Ok(Mapper.Map<CustomerModel, CustomerDTO>(customer));
         }
 
         // POST /api/customers
         [HttpPost]
-        public CustomerModel CreateCustomer(CustomerModel customer)
+        public IHttpActionResult CreateCustomer(CustomerDTO customerDTO)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
-            
+                return BadRequest();
+
+            var customer = Mapper.Map<CustomerDTO, CustomerModel>(customerDTO);
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
-            return customer;
+            customerDTO.ID = customer.ID;
+            
+            return Created(new Uri(Request.RequestUri + "/"+customer.ID), customerDTO);
         }
 
         // PUT /api/customers/1
         [HttpPut]
-        public void UpdateCustomer(int id, CustomerModel customer)
+        public void UpdateCustomer(int id, CustomerDTO customerDTO)
         {
-            if (customer == null)
+            if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             
             var customerInDb = _context.Customers.SingleOrDefault(c => c.ID == id);
+
             if (customerInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            customerInDb.Name = customer.Name;
-            customerInDb.DoB = customer.DoB;
-            customerInDb.IsSubbedNewsletter = customer.IsSubbedNewsletter;
-            customerInDb.MembershipTypeId = customer.MembershipTypeId;
+            Mapper.Map(customerDTO, customerInDb);
 
             _context.SaveChanges();
 
