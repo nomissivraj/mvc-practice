@@ -104,9 +104,10 @@ namespace Vidly.Controllers
             var movies = _context.Movies.Include(m => m.Genre).ToList();
 
             Random r = new Random();
-            int rInt = r.Next(1, movies.Count + 1);
+            int rInt = r.Next(movies.Count);
+            
+            var movie = movies.Find(x => x.ID == movies[rInt].ID);
 
-            var movie = movies.Find(x => x.ID == rInt);
 
 
             return View(movie);

@@ -62,3 +62,18 @@ textarea {
     left: 50%;
     transform: translate(-50%, -50%)
 }
+
+.sjModal__text {
+    padding: 30px 20px;
+}
+
+.sjModal__btn {
+    width: calc(50% - 5px);
+}
+
+.sjModal__btn--confirm {
+    margin-left: 5px;
+}
+.sjModal__btn--cancel {
+    margin-right: 5px;
+}

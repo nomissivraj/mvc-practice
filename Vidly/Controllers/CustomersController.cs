@@ -95,6 +95,12 @@ namespace Vidly.Controllers
 
         }
 
+        //public ActionResult Index()
+        //{
+        //    return View();
+
+        //}
+
         public new ActionResult Profile(int ID)
         {
             var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.ID == ID);

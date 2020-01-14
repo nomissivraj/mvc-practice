@@ -3,7 +3,7 @@
     ViewBag.Title = "New";
 }
 
-<h2>New Customer</h2>
+<h2>@(Model.Customer.ID > 0 ? "Edit Customer" : "New Customer" )</h2>
 
 @using (Html.BeginForm("Save", "Customers"))
 {

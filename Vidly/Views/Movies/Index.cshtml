@@ -18,7 +18,7 @@ else
     @Html.ActionLink("Add Movie", "New", null, new { @class = "btn btn-primary ml-1" })
     <br />
     <br />
-    <table class="table table-bordered table-hover">
+    <table id="movies" class="table table-bordered table-hover">
         <tr>
             <th>Title</th>
         </tr>
@@ -27,6 +27,7 @@ else
             <tr>
                 <td>
                     @Html.ActionLink((string)item.Name, "Movie", new { id = item.ID }, null)
+                    <button class="btn btn-primary float-right" style="margin-left: 10px;" data-delete-name="@item.Name" data-delete-id="@item.ID">Delete</button>
                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "float-right" })
                 </td>
             </tr>
@@ -34,4 +35,29 @@ else
         }
 
     </table>
+}
+<div id="modal-container">
+
+</div>
+
+@section scripts {
+    <script>
+        $('#movies').off().on("click", "[data-delete-name]", function () {
+            var _this = $(this);
+
+            sjModal.confirm("Are you sure you want to delete " + _this.attr("data-delete-name") + " from Vidly", function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "/API/Movies/" + _this.attr("data-delete-id"),
+                        method: "DELETE",
+                        success: function () {
+                            console.log("success")
+                            _this.parents("tr").remove();
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
 }
