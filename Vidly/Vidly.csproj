@@ -217,9 +217,9 @@
     <Compile Include="Migrations\201912171812191_ApplyAnnotationsToCustomerName.Designer.cs">
       <DependentUpon>201912171812191_ApplyAnnotationsToCustomerName.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912171825383_SeedUsers.cs" />
-    <Compile Include="Migrations\201912171825383_SeedUsers.Designer.cs">
-      <DependentUpon>201912171825383_SeedUsers.cs</DependentUpon>
+    <Compile Include="Migrations\201912171825383_SeedCustomers.cs" />
+    <Compile Include="Migrations\201912171825383_SeedCustomers.Designer.cs">
+      <DependentUpon>201912171825383_SeedCustomers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201912202130303_adding membership name.cs" />
     <Compile Include="Migrations\201912202130303_adding membership name.Designer.cs">
@@ -256,6 +256,10 @@
     <Compile Include="Migrations\201912241818117_SeedGenres.cs" />
     <Compile Include="Migrations\201912241818117_SeedGenres.Designer.cs">
       <DependentUpon>201912241818117_SeedGenres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001142144353_SeedUsers.cs" />
+    <Compile Include="Migrations\202001142144353_SeedUsers.Designer.cs">
+      <DependentUpon>202001142144353_SeedUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -636,8 +640,8 @@
     <EmbeddedResource Include="Migrations\201912171812191_ApplyAnnotationsToCustomerName.resx">
       <DependentUpon>201912171812191_ApplyAnnotationsToCustomerName.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912171825383_SeedUsers.resx">
-      <DependentUpon>201912171825383_SeedUsers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912171825383_SeedCustomers.resx">
+      <DependentUpon>201912171825383_SeedCustomers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912202130303_adding membership name.resx">
       <DependentUpon>201912202130303_adding membership name.cs</DependentUpon>
@@ -665,6 +669,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912241818117_SeedGenres.resx">
       <DependentUpon>201912241818117_SeedGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001142144353_SeedUsers.resx">
+      <DependentUpon>202001142144353_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

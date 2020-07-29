@@ -39,6 +39,55 @@ else
 <div id="modal-container">
 
 </div>
+<div class="row">
+    <div class="col-lg-4">
+        <div id="target-1">
+            Target 1
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div id="target-2">
+            Target 2
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div id="target-3">
+            Target 3
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<style>
+    .on-boarding__step {
+        display: none;
+    }
+
+    .highlight {
+        border: 2px solid red;
+    }
+</style>
+
+<div class="on-boarding">
+    <div id="step-1" class="on-boarding__step" data-target-el="target-1" data-step-duration="3">
+        Step 1 has this content
+    </div>
+    <div id="step-2" class="on-boarding__step" data-target-el="target-2" data-step-duration="4">
+        Step 2 has fudge
+    </div>
+    <div id="step-3" class="on-boarding__step" data-target-el="target-3" data-step-duration="2">
+        Step 3 ballsacksanonymous
+    </div>
+
+    <div class="on-boarding__controls">
+        <div>Previous</div>
+        <div>Next</div>
+        <div>close</div>
+    </div>
+</div>
+
+
 
 @section scripts {
     <script>
@@ -58,6 +107,68 @@ else
                 }
             });
         });
+
+
+        //On-boarding:
+        $(window).on("load", function () {
+            onBoarding('.on-boarding__step');
+        });
+
+
+        function onBoarding(target) {
+            var steps = [];
+
+            // Get all steps and their properties
+            $(target).each(function () {
+                // build objects from data-attributes
+                steps.push({
+                    name: $(this).attr("id"),
+                    duration: $(this).data("step-duration"),
+                    target: $(this).data("target-el")
+                });
+            });
+
+
+            // Do first step
+            $('#' + steps[0].name).css('display', 'block');
+            $('#' + steps[0].target).addClass('highlight');
+
+
+            // Play through each step
+            steps.forEach(function (item, i) {
+                setTimeout(function () {
+                    // if not last one show next one hide this one
+                    if (i + 1 < steps.length) { // Move onto next step
+                        // Hide current/old step
+                        $('#' + steps[i].name).css('display', 'none');
+                        $('#' + steps[i].target).removeClass('highlight');
+
+                        // Show new step
+                        $('#'+ steps[i + 1].target).addClass('highlight');
+                        $('#' + steps[i + 1].name).css('display', 'block');
+
+                    }
+                    if (i + 1 == steps.length) // Do for last step
+                        $('#' + steps[i].name).css('display', 'none');
+                    $('#' + steps[i].target).removeClass('highlight');
+
+                }, sumUpToIndex(steps, i) * 1000);
+
+            });
+
+
+            // calculate duration prior to current index
+            function sumUpToIndex(arr, index) {
+                var count = 0;
+                for (var i = 0; i <= index; i++) {
+                    count += arr[i].duration;
+                }
+                return count;
+            }
+        }
+
+
+
 
     </script>
 }

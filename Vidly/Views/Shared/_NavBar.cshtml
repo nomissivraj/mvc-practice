@@ -15,6 +15,23 @@
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 <li>@Html.ActionLink("Movies", "Index", "Movies")</li>
             </ul>
+
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form method="post" action="Account/LogOff">
+                    @Html.AntiForgeryToken()
+                    <button class="btn-link float-right" style="margin-top:12px;">Log Out</button><span class="float-right" style="color:#fff; margin-top:15px;">Hello @User.Identity.Name | </span>
+                </form>
+            }
+            else
+            {
+                <form method="post" action="Account/Login">
+                    @Html.AntiForgeryToken()
+                    <button class="btn-link float-right" style="margin-top:12px;">Login</button>
+
+                </form>
+            }
         </div>
     </div>
 </div>
